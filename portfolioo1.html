@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Instrument+Sans:wght@400;500;600&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --paper: #F3F6FD;
+      --ink: #14213D;
+      --muted: #4B587C;
+      --cobalt: #2B4EFF;
+      --marigold: #FFC93C;
+      --line: #C9D4F0;
+      --white: #FFFFFF;
+      --display: "Bricolage Grotesque", "Trebuchet MS", sans-serif;
+      --body: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--body);
+      font-size: 1.0625rem;
+      line-height: 1.6;
+      color: var(--ink);
+      background-color: var(--paper);
+      background-image:
+        linear-gradient(var(--line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line) 1px, transparent 1px);
+      background-size: 32px 32px;
+      background-position: -1px -1px;
+    }
+
+    .wrap {
+      width: min(1040px, 100% - 2.5rem);
+      margin-inline: auto;
+    }
+
+    a {
+      color: var(--cobalt);
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--cobalt);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    /* top bar */
+    .bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 0;
+    }
+
+    .bar b {
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: 1.1rem;
+    }
+
+    .bar nav {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .bar nav a {
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .bar nav a:hover {
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    /* hero */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 260px;
+      gap: 3rem;
+      align-items: center;
+      padding: 3rem 0 4.5rem;
+    }
+
+    .hero h1 {
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: clamp(2.8rem, 8vw, 5.6rem);
+      line-height: 0.98;
+      letter-spacing: -0.03em;
+      margin: 0 0 1.25rem;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(transparent 62%, var(--marigold) 62%);
+      padding-inline: 0.1em;
+    }
+
+    .role {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 0 0 1rem;
+      color: var(--cobalt);
+    }
+
+    .hero p.lead {
+      max-width: 56ch;
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .photo {
+      width: 260px;
+      aspect-ratio: 1;
+      border-radius: 50% 50% 50% 8px;
+      background: var(--cobalt);
+      color: var(--white);
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: 5rem;
+      box-shadow: 10px 10px 0 var(--marigold);
+    }
+
+    .photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* sections */
+    section {
+      padding: 3.5rem 0;
+    }
+
+    h2 {
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: clamp(1.9rem, 4vw, 2.6rem);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin: 0 0 1.5rem;
+    }
+
+    .about {
+      background: var(--white);
+      border-block: 2px solid var(--ink);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 3rem;
+    }
+
+    .about p {
+      margin: 0 0 1rem;
+      max-width: 62ch;
+    }
+
+    .facts {
+      margin: 0;
+      display: grid;
+      gap: 0.9rem;
+      align-content: start;
+    }
+
+    .facts div {
+      border-left: 4px solid var(--cobalt);
+      padding-left: 0.9rem;
+    }
+
+    .facts dt {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .facts dd {
+      margin: 0;
+      font-weight: 600;
+    }
+
+    /* term tabs */
+    .tabs {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+    .tab {
+      font: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 0.7rem 1.4rem;
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+      background: var(--white);
+      color: var(--ink);
+      transition: background 0.15s, color 0.15s, transform 0.15s;
+    }
+
+    .tab:hover {
+      transform: translateY(-2px);
+    }
+
+    .tab[aria-selected="true"] {
+      background: var(--ink);
+      color: var(--white);
+    }
+
+    .tab small {
+      font-weight: 500;
+      opacity: 0.75;
+      margin-left: 0.4rem;
+    }
+
+    .term-note {
+      color: var(--muted);
+      margin: -0.75rem 0 1.75rem;
+      max-width: 62ch;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--white);
+      border: 2px solid var(--ink);
+      border-radius: 6px 22px 6px 6px;
+      padding: 1.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .card .shot {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      display: block;
+      border: 2px solid var(--ink);
+      border-radius: 4px;
+    }
+
+    .card .meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .card .kind {
+      font-weight: 600;
+      color: var(--cobalt);
+    }
+
+    .card h3 {
+      font-family: var(--display);
+      font-size: 1.35rem;
+      line-height: 1.2;
+      margin: 0;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .card .learned {
+      border-top: 1px solid var(--line);
+      padding-top: 0.7rem;
+      color: var(--ink);
+    }
+
+    .card .learned b {
+      font-weight: 600;
+    }
+
+    .card .foot {
+      margin-top: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 0.5rem;
+      font-weight: 600;
+    }
+
+    .score {
+      background: var(--marigold);
+      padding: 0.1rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.9rem;
+    }
+
+    .empty {
+      padding: 2rem;
+      border: 2px dashed var(--line);
+      border-radius: 8px;
+      background: var(--white);
+    }
+
+    /* reflections */
+    .reflections {
+      background: var(--ink);
+      color: var(--white);
+    }
+
+    .reflections h2 {
+      color: var(--white);
+    }
+
+    .reflections .intro {
+      color: var(--line);
+      max-width: 62ch;
+      margin: -0.75rem 0 2rem;
+    }
+
+    .reflections a {
+      color: var(--marigold);
+    }
+
+    .reflections :focus-visible {
+      outline-color: var(--marigold);
+    }
+
+    .entry {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 2.5rem;
+      padding: 2.5rem 0;
+      border-top: 2px solid rgba(255, 255, 255, 0.25);
+    }
+
+    .badge {
+      display: inline-block;
+      background: var(--marigold);
+      color: var(--ink);
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 0.15rem 0.85rem;
+      border-radius: 999px;
+    }
+
+    .entry-head h3 {
+      font-family: var(--display);
+      font-size: 1.5rem;
+      line-height: 1.2;
+      margin: 0.8rem 0 0.4rem;
+    }
+
+    .when {
+      color: var(--line);
+      font-size: 0.9rem;
+    }
+
+    .entry-body p {
+      margin: 0 0 1rem;
+      max-width: 64ch;
+    }
+
+    .pull {
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: clamp(1.3rem, 2.6vw, 1.8rem);
+      line-height: 1.25;
+      margin: 0 0 1.5rem;
+      padding-left: 1rem;
+      border-left: 5px solid var(--marigold);
+      max-width: 40ch;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0 1rem;
+    }
+
+    .gallery figure {
+      margin: 0;
+    }
+
+    .zoom {
+      display: block;
+      width: 100%;
+      padding: 0;
+      border: 2px solid var(--white);
+      border-radius: 4px;
+      background: none;
+      overflow: hidden;
+      cursor: zoom-in;
+    }
+
+    .zoom img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+    }
+
+    .gallery figcaption {
+      margin-top: 0.4rem;
+      font-size: 0.9rem;
+      color: var(--line);
+    }
+
+    #lightbox {
+      border: 0;
+      padding: 0;
+      background: transparent;
+      color: var(--white);
+      max-width: min(92vw, 1000px);
+    }
+
+    #lightbox::backdrop {
+      background: rgba(20, 33, 61, 0.9);
+    }
+
+    #lightbox img {
+      display: block;
+      max-width: 100%;
+      max-height: 78vh;
+      margin: 0 auto;
+      border: 3px solid var(--white);
+      border-radius: 4px;
+      background: var(--white);
+    }
+
+    #lightbox p {
+      text-align: center;
+      margin: 0.75rem 0 0;
+    }
+
+    #lightbox .close {
+      display: block;
+      margin: 0 0 0.75rem auto;
+      font: inherit;
+      font-weight: 600;
+      background: var(--marigold);
+      color: var(--ink);
+      border: 0;
+      border-radius: 999px;
+      padding: 0.4rem 1.1rem;
+      cursor: pointer;
+    }
+
+    @media (max-width: 760px) {
+      .entry {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+    }
+
+    /* contact */
+    .contact {
+      padding-bottom: 5rem;
+    }
+
+    .contact ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem 2rem;
+    }
+
+    footer {
+      padding: 1.5rem 0 2.5rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 760px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 1.5rem;
+      }
+
+      .photo {
+        width: 180px;
+        order: -1;
+        font-size: 3.5rem;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .bar nav {
+        gap: 1rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .tab {
+        transition: none;
+      }
+
+      .tab:hover {
+        transform: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="wrap">
+    <header class="bar">
+      <b id="brand">Your Name</b>
+      <nav aria-label="Page sections">
+        <a href="#about">About</a>
+        <a href="#work">Activities</a>
+        <a href="#reflections">Reflections</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <div class="hero">
+        <div>
+          <h1>Hi, I’m <span id="heroName">Your Name</span></h1>
+          <p class="role" id="heroRole">Your course · Year level</p>
+          <p class="lead" id="heroLead">YOUR SHORT INTRO: one or two sentences about who you are and what you’re
+            studying.</p>
+        </div>
+        <div class="photo" id="photo" aria-label="Profile photo"></div>
+      </div>
+    </main>
+  </div>
+
+  <section class="about" id="about">
+    <div class="wrap about-grid">
+      <div>
+        <h2>About me</h2>
+        <p id="about1">YOUR ABOUT ME: Tell visitors who you are, where you study, and what you enjoy doing.</p>
+        <p id="about2">YOUR GOALS: Share what you hope to learn or become, and what this portfolio shows.</p>
+      </div>
+      <dl class="facts" id="facts"></dl>
+    </div>
+  </section>
+
+  <section id="work">
+    <div class="wrap">
+      <h2>My activities this semester</h2>
+      <div class="tabs" role="tablist" aria-label="Grading periods" id="tabs"></div>
+      <p class="term-note" id="termNote"></p>
+      <div class="grid" id="grid" role="tabpanel" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="reflections" id="reflections">
+    <div class="wrap">
+      <h2>My reflections</h2>
+      <p class="intro" id="reflectionsIntro"></p>
+      <div id="reflectionList"></div>
+    </div>
+  </section>
+
+  <dialog id="lightbox" aria-label="Enlarged photo">
+    <button class="close" type="button" id="lightboxClose">Close</button>
+    <img id="lightboxImg" alt="">
+    <p id="lightboxCap"></p>
+  </dialog>
+
+  <section class="contact" id="contact">
+    <div class="wrap">
+      <h2>Get in touch</h2>
+      <ul id="contactList"></ul>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap"><span id="footerText"></span></div>
+  </footer>
+
+  <script>
+    /* ============ 1. YOUR PROFILE: edit these ============ */
+    const PROFILE = {
+      name: "Hannah Alexa Laylo",
+      role: "BS Information Technology - 4th Year",
+      lead: "Life is a journey in which there's no turning back, so forge ahead and dont hold back.",
+      about1: "I am a 21 years old student who studies in Jose Rizal University. A normal kid who finds technology amazing in its ways as it grows throughout the years. Hence, taking a course that is heavily related to technology, Bachelor of Science Information Technology. As you go through this ePortfolio, I will showcase all the things I’ve been doing in this course. Spoiler alert, I’m not the best at it but I’m trying my best. Enjoy!",
+      photo: "me pic.jpg", // e.g. "me.jpg" (leave empty to show your initials)
+      facts: [
+        {label: "School", value: "Jose Rizal University"},
+        {label: "Course and year", value: "BSIT - 4th Year"},
+        {label: "Section", value: "402I"},
+        {label: "Interests", value: "Coffee/Games/Sponty Trips"}
+      ],
+      contacts: [
+        {label: "Email", text: "hannahalexa.laylo@my.jru.edu", href: "mailto:hannahalexa.laylo@my.jru.edu"},
+        {label: "Facebook", text: "Alexa Laylo", href: "https://www.facebook.com/hnxly.han"},
+        {label: "GitHub", text: "hnxlyl", href: "https://github.com/hnlxly"}
+      ]
+    };
+
+    /* ============ 2. YOUR TERMS: rename or add notes ============ */
+    const TERMS = {
+      prelims: {label: "Prelims", period: "Weeks 1–6", note: "Where I started: the first set of activities and what I learned from them."},
+      midterms: {label: "Midterms", period: "Weeks 7–12", note: "Building on the basics with bigger and more detailed work."},
+      finals: {label: "Finals", period: "Weeks 13–18", note: "My most complete work, bringing everything together."},
+    };
+
+    /* ============ 3. YOUR ACTIVITIES: copy, paste and edit ============ */
+    const ACTIVITIES = [
+      {
+        term: "prelims",
+        title: "WW-P2 : Introduction to NLP Concepts",
+        image: "WW-P2  Introduction to NLP Concepts.png",                        // e.g. "photos/activity1.jpg" (leave empty to hide)
+        type: "Laboratory activity",      // e.g. Quiz, Project, Reflection, Presentation
+        date: "July 23, 2026",
+        learned: "In this activity, we completed a Microsoft Learn module on Natural Language Processing (NLP), covering key concepts such as tokenization, text preprocessing, stemming, lemmatization, TF-IDF, n-grams, and word embeddings. We also performed hands-on text analysis and explored how these concepts relate to Transformers, LLMs, and our future laboratory activities and capstone projects.",
+        score: "",                        // e.g. "95/100" (leave empty to hide)
+        link: "", linkText: ""            // e.g. link: "files/activity1.pdf", linkText: "View file"
+      },
+      {
+        term: "prelims",
+        title: "Exercise PT-P1: Deep Learning (Neural Networks)",
+        image: "Exercise PT-P1 Deep Learning (Neural Networks).png",
+        type: "Laboratory Activity",
+        date: "July 30, 2026",
+        learned: "The purpose of this experiment is to evaluate how sentiment classification models handle normal, ambiguous, and out-of-vocabulary (OOV) inputs using the ML4Kids Recognize Text module. Using labelled customer feedback in three sentiment categories, we tested different inputs, including slang, sarcasm, misspellings, and unusual phrases. Results showed that the model performed well on familiar patterns but struggled with sarcasm and unfamiliar wording. The experiment highlighted the importance of using diverse training examples to improve classification accuracy.",
+        score: "",
+        link: "https://docs.google.com/document/d/1DNdAS2gp1bvoS9de-rf24Fw2tWpVwNqO4qMO4js2dZc/edit?usp=sharing", linkText: "Access the paper"
+      },
+      {
+        term: "prelims",
+        title: "PT-P2 - Neural Network Training and Testing (HyperParameters)",
+        image: "PT-P2 - Neural Network Training and Testing (HyperParameters).png",
+        type: "Laboratory Activity",
+        date: "August 13, 2026",
+        learned: "Customer Sentiment Analysis helps businesses categorize customer feedback into Positive, Negative, and Urgent sentiments. This study developed a classification model using an NLP pipeline with embedding, pooling, dense, dropout, and softmax layers. Through hyperparameter tuning and optimization, the model improved from an initial 87.55% Weighted F1-score to 89.95%, demonstrating better sentiment classification performance.",
+        score: "",
+        link: "https://docs.google.com/document/d/1OLmRlIXC9gEZrkyW1rFuJd4Itj-vawY_QE6RKBJTvXc/edit?usp=sharing", linkText: "Access the paper"
+      },
+      {
+        term: "prelims",
+        title: "Long Quiz Week",
+        image: "",
+        type: "Quiz",
+        date: "August 13, 2026",
+        learned: "In this activity, we are asked all about what we learned in NLP and what and how hyperparameters and parameters work. However we took this quiz face to face using google forms and our score wasnt shown.",
+        score: "", link: "", linkText: ""
+      },
+      {
+        term: "prelims",
+        title: "Prelims Exam",
+        image: "",
+        type: "Exam",
+        date: "August 17, 2026",
+        learned: "In this activity, we took the Prelims exam face to face and was divided into 2 sets and I was in Set A",
+        score: "20/40", link: "", linkText: ""
+      },
+      {
+        term: "midterms",
+        title: "Lab Exercise PT-M1 (Building and Evaluating a RAG Chatbot)",
+        image: "Lab Exercise PT-M1 (Building and Evaluating a RAG Chatbot).png",
+        type: "Laboratory Activity",
+        date: "September 9, 2026",
+        learned: "I learned how to develop a domain-specific RAG chatbot using document retrieval, embeddings, and prompt constraints to provide reliable answers and prevent hallucinations. I also learned the importance of API key security, model compatibility, and troubleshooting when working with AI models.",
+        score: "",
+        link: "https://docs.google.com/document/d/1KId8G_vh88KMivGHOKVc5SbStEuoDGjs62Qp6bmF0u0/edit?usp=sharing", linkText: "Access the paper"
+      },
+      {
+        term: "midterms",
+        title: "Lab Exercise WW-M2 (Proposal)",
+        image: "Lab Exercise WW-M2 (Proposal).png",
+        type: "Proposal",
+        date: "September 9, 2026",
+        learned: "In this activity, we developed a proposal for a localized RAG chatbot aligned with SDG 9, focusing on flood preparedness and infrastructure protection in the Philippines. The proposed system aimed to provide reliable guidance using government resources from DOST-PAGASA and OCD/NDRRMC in English, Tagalog, and Taglish. However, this proposal was also rejected, and we were asked to revise our topic and submit another proposal.",
+        score: "",
+        link: "https://docs.google.com/document/d/1vRXfyzE-0acDSW_SpTcUz0BLmb1IuDpvxY-0Q8mfqzw/edit?usp=sharing", linkText: "Access the paper"
+      },
+      {
+        term: "midterms",
+        title: "WW-M2 Extension (Updated Proposal)",
+        image: "WW-M2 Extension (Updated Proposal).png",
+        type: "Proposal",
+        date: "September 29, 2026",
+        learned: "In this activity, we presented our revised proposal for a RAG-based chatbot aligned with SDG 5, focusing on providing accessible and reliable information about violence against women and girls in the Philippines. The system aims to answer questions about legal rights, reporting procedures, protection measures, and support services using authoritative government documents. It also focuses on generating accurate, grounded responses while avoiding unsupported information.",
+        score: "",
+        link: "https://docs.google.com/document/d/1q4XDqutKDGe6-TGe7NjMxZznJ9K8Dc6a2CwbxOh1nc4/edit?usp=sharing", linkText: "Access the paper"
+      },
+      {
+        term: "midterms",
+        title: "Midterm Exam and Quiz",
+        image: "",
+        type: "Exam",
+        date: "Oct 8, 2026",
+        learned: "The midterm examination covered key concepts in Machine Learning and Large Language Models (LLMs). Test 1 (Quiz) focused on the differences between traditional Machine Learning and LLMs, while Test 2 (Exam) covered document chunking, its purpose, why entire PDF files should not be fed directly into a model, and the importance of chunk size and overlap. Both the quiz and midterm exam were combined into one assessment, with Test 1 serving as the quiz and Test 2 as the exam.",
+        score: "16/30", link: "", linkText: ""
+      },
+      {
+        term: "finals",
+        title: "PT-F1 (Optimizing Chunk Size and Overlap): Initial Preps",
+        image: "PT-F1 (Optimizing Chunk Size and Overlap) Initial Preps.png",
+        type: "Laboratory Activity",
+        date: " October 22, 2026 ",
+        learned: "Through this activity, I learned how to organize and document code, prepare PDF datasets, and perform text chunking and vector indexing for a RAG-based chatbot. I also learned how to create test questions with different difficulty levels, adjust language models, and improve prompts and guardrails to generate accurate, relevant, and reliable answers based on the retrieved information.",
+        score: "", 
+        link: "https://docs.google.com/document/d/1WCQbLtuiLa8-vM9PInBmZymFw5jFqmWNibNe0repwyU/edit?usp=sharing", linkText: "Access the Paper"
+      },
+      {
+        term: "finals",
+        title: "Lab Exercise PT-F2 (Part2: Experimenting to Determine the Best Chunk",
+        image: "Lab Exercise PT-F2 (Part2 Experimenting to Determine the Best Chunk.png",
+        type: "Laboratory Activity",
+        date: " October 29, 2026 ",
+        learned: "Through this activity, I learned how different chunk sizes and overlap settings affect information retrieval in a RAG-based chatbot. I gained experience testing 12 chunking configurations using FAISS and evaluating their performance through Precision\@3, Recall\@3, and MRR\@3. I also learned that the best chunking strategy depends on how well it preserves context and retrieves relevant information. Based on our results, the 800-character chunk size with an 80-character overlap (C8) achieved the strongest overall retrieval performance and was selected as the recommended configuration for our chatbot.",
+        score: "", 
+        link: "https://docs.google.com/document/d/1RjqnaLHcg78zC2fINuzOul1ujjvegGFX7l1sUtpyQs0/edit?usp=sharing", linkText: "Access the Paper"
+      },
+      {
+        term: "finals",
+        title: "ITC-C508 Lab Exercise WW1 and WW2 (Optimization and GPU Testing)",
+        image: "ITC-C508 Lab Exercise WW1 and WW2 (Optimization and GPU Testing).png",
+        type: "Laboratory Activity",
+        date: "November 4, 2026",
+        learned: "Through this activity, I learned how to optimize and evaluate a RAG-based chatbot by testing different chunking configurations and comparing their retrieval performance. I also learned how GPU acceleration can improve system efficiency by reducing indexing and response times without affecting retrieval quality. Based on our results, the 800-character chunk size with an 80-character overlap and Top-K of 3 provided the best retrieval performance, while using a GPU made the chatbot significantly faster. This activity helped me understand the importance of balancing retrieval accuracy and processing speed when developing an effective RAG chatbot..",
+        score: "",
+        link: "https://docs.google.com/document/d/1gxSV_pd3BSID10bAoVsXMqQe-PDuEVjXTvlh0i6_dsI/edit?usp=sharing", linkText: "Access the Papers"
+      },
+      {
+        term: "finals",
+        title: "P-F1 (Group Final Project)",
+        image: "Cache_RAG_IEEE_Report.png",
+        type: "Final Project",
+        date: " October 22, 2026 ",
+        learned: "Through this activity, I learned how to evaluate and optimize a RAG-based chatbot using multiple knowledge sources, including the Barangay VAW Desk Handbook and the Magna Carta of Women. I gained experience comparing different chunking configurations, assessing retrieval performance, and analyzing the effects of CPU and GPU execution. I also learned that the highest evaluation scores do not always guarantee the most relevant answers, so the quality of retrieved information must also be considered. Overall, this activity helped me understand how to balance retrieval accuracy, answer relevance, and processing efficiency when developing a reliable chatbot..",
+        score: "", 
+        link: "https://docs.google.com/document/d/1wpDyaQZjYPi6mcRwY3TOyqob_yCi_WJC/edit?usp=sharing&ouid=118176944185253617858&rtpof=true&sd=true", linkText: "Access the Paper"
+      }
+    ];
+
+    /* ============ 4. YOUR REFLECTIONS: copy, paste and edit ============ */
+    const REFLECTIONS_INTRO = "It consist of the reflections I had from Prelims to Finals.";
+
+    const REFLECTIONS = [
+            {
+        period: "Prelims",
+        title: "Reflection: Introduction to NLP Concepts",
+        date: "",
+        highlight: "",
+        text: [
+          "Before engaging in the Introduction to Natural Language Processing activity, I already had some knowledge about Deep Learning and Neural Networks. According to the previous lessons, we know that a neural network can learn patterns and predict from data. Nevertheless, all my knowledge before was rather related to structured data and machine learning techniques in general. Therefore, I was curious about how the same ideas can be applied to text and human language.",
+
+          "While performing the Microsoft Learn activity, I learned that Natural Language Processing includes several approaches to working with text. Specifically, I have become familiar with tokenization, stop-word removal, stemming, and lemmatization. Initially, I thought that all these methods were the same, but the activity gave me an opportunity to realize the difference between them. I have also gained some knowledge about TF-IDF and how it can find important words in a document comparing to other documents.",
+
+          "One of the most interesting sections is related to word embeddings and contextual representation. It links with previous experience in Deep Learning and Neural Networks as embeddings make it possible to represent words in the form of vector numbers. I have understood that computers cannot comprehend words like people do, and thus, certain techniques of NLP are needed in order to transform language into something that can be analyzed by the model. Moreover, it turned out that modern techniques consider the context of the word rather than treat each of the words separately. Thus, this part made me realize how modern technologies such as transformers and large language models are capable of processing and generating text resembling human one.",
+
+          "It should be said that the activity has shifted my perception of the relationship between NLP and AI to a great extent. Previously, I was sure that NLP consisted only of chatbots and text classification. However, after the activity was completed, it became clear to me that there were several stages, including preprocessing text and representing its meaning and context.",
+
+          "I also think that this assignment will be helpful in my further studies and capstone project. As I have already had experience with Deep Learning and Neural Networks, having an additional view on applying machine learning on various types of data will be useful. This assignment may help me to prepare for future lectures on Transformers, LLMs, and RAG. In general, this assignment helped me to link my previous knowledge from the Deep Learning course to NLP.",
+
+          "To conclude, this assignment helped me to get a more clear picture of how computers work with human languages. I understood that even the simplest procedures such as tokenization and preprocessing are crucial bases for further NLP systems development. Most importantly, I managed to link my previous knowledge of Deep Learning and Neural Networks with current NLP technologies. For the future, I would like to study more on Transformers, LLMs and their implementation."
+        ],
+        photos: [
+          // {src: "nlp-activity.png", caption: "Screenshot of the Microsoft Learn module"},
+        ],
+        link: "", linkText: ""
+      },
+           {
+        period: "Midterms",
+        title: "Reflection: Lectures L4 to L7",
+        date: "",
+        highlight: "",
+        text: [
+          "In L4, I learned the fundamental concepts of Large Language Models (LLMs) and LLMOps, including how LLMs process information, generate responses, and are applied in AI-powered systems. I also gained an understanding of how LLMOps helps manage, deploy, monitor, and maintain language models to ensure their reliability and performance.",
+
+          "In L5, I learned how to plan and develop a research project involving a Retrieval-Augmented Generation (RAG) chatbot. This lecture helped me understand the importance of identifying a research problem, defining the project scope, selecting an appropriate topic, and determining how RAG can be applied to address real-world problems. I also learned that developing a good research proposal requires a clear purpose, reliable sources, and realistic objectives.",
+
+          "In L6, I learned that building a reliable dataset is an important part of developing an effective RAG-based chatbot. This includes collecting relevant documents, checking their credibility, organizing information, and preparing data for processing and retrieval. I also understood that the quality of the knowledge base directly affects the accuracy and relevance of the chatbot's responses.",
+
+          "In L7, I further understood how data chunking strategies divide large documents into smaller sections, making information retrieval more efficient and helping chatbots generate relevant responses. I realized that developing an effective RAG-based chatbot requires more than just choosing a language model; it also involves proper research planning, quality data, appropriate chunking techniques, and effective implementation. Overall, these lectures strengthened my understanding of AI-powered chatbot development and provided valuable knowledge that I can apply to our future laboratory activities and capstone project.",
+
+          "These lectures helped me understand the different stages involved in developing an AI-powered chatbot, from understanding LLMs and their management to planning a research project and preparing a reliable dataset. I realized that building an effective RAG-based chatbot requires more than just choosing a language model. It also involves proper planning, reliable information sources, and careful data preparation to produce accurate and useful responses."
+        ],
+        photos: [
+          // {src: "midterm-lecture.png", caption: "Optional caption"},
+        ],
+        link: "", linkText: ""
+      },
+      {
+        period: "Finals",
+        title: "Final Project Learning Reflection",
+        date: "",
+        highlight: "",
+        text: [
+          "Throughout our final project, A Retrieval-Augmented Generation Chatbot for Accessing Reliable Information on Violence Against Women and Girls in the Philippines, I contributed to different aspects of the team's development, experimentation, and documentation.",
+
+          "My responsibilities included coordinating assigned tasks, adding comments and explanations to our Google Colab implementation, and evaluating the chatbot's generated responses to identify incomplete or incorrect information. I also prepared the majority of our IEEE research report, documented the technical implementation and experimental procedures, and helped finalize our experimentation logs. Additionally, I organized the experimental results, prepared tables and presentations, edited the manuscript, and arranged the required project files and supporting documents for submission.",
+
+          "One of my most important learning experiences was experimenting with different chunk sizes and overlap settings to determine which configuration would work best for our RAG-based chatbot. I learned that changing these values can affect how information is divided, retrieved, and presented in the generated responses. Through comparing the configurations and evaluating their retrieval performance, I gained a better understanding of how to improve the chatbot's ability to retrieve relevant information from its knowledge base.",
+
+          "Overall, this project helped me develop my technical, analytical, research, and documentation skills. I also improved my ability to organize tasks, evaluate results, collaborate with team members, and communicate technical findings. Most importantly, I learned that developing an effective RAG-based chatbot requires continuous testing, adjustments, and evaluation. This experience gave me a deeper understanding of the development process and the importance of making sure that the information provided by the system is relevant and reliable."
+        ],
+        photos: [
+          // {src: "final-project.png", caption: "Optional caption"},
+        ],
+        link: "", linkText: ""
+      }
+    ];
+
+    /* ============ Page code (no need to edit below) ============ */
+    const $ = id => document.getElementById(id);
+    const esc = s => String(s).replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
+
+    document.title = PROFILE.name + " | Portfolio";
+    $("brand").textContent = PROFILE.name;
+    $("heroName").textContent = PROFILE.name;
+    $("heroRole").textContent = PROFILE.role;
+    $("heroLead").textContent = PROFILE.lead;
+    $("about1").textContent = PROFILE.about1;
+    $("about2").textContent = PROFILE.about2;
+    $("footerText").textContent = "© " + new Date().getFullYear() + " " + PROFILE.name;
+
+    const photo = $("photo");
+    if (PROFILE.photo) {
+      photo.innerHTML = '<img src="' + esc(PROFILE.photo) + '" alt="Photo of ' + esc(PROFILE.name) + '">';
+    } else {
+      photo.textContent = PROFILE.name.split(/\s+/).map(w => w[0]).join("").slice(0, 2).toUpperCase();
+    }
+
+    $("facts").innerHTML = PROFILE.facts.map(f =>
+      "<div><dt>" + esc(f.label) + "</dt><dd>" + esc(f.value) + "</dd></div>").join("");
+
+    $("contactList").innerHTML = PROFILE.contacts.filter(c => c.text).map(c =>
+      "<li><b>" + esc(c.label) + ":</b> <a href=\"" + esc(c.href) + "\">" + esc(c.text) + "</a></li>").join("");
+
+    const tabs = $("tabs");
+    let current = "prelims";
+
+    function renderTabs() {
+      tabs.innerHTML = Object.entries(TERMS).map(([key, t]) =>
+        '<button class="tab" role="tab" id="tab-' + key + '" data-term="' + key + '" aria-selected="' + (key === current) +
+        '">' + esc(t.label) + "<small>" + esc(t.period) + "</small></button>").join("");
+    }
+
+    function renderCards() {
+      $("termNote").textContent = TERMS[current].note;
+      const items = ACTIVITIES.filter(a => a.term === current);
+      $("grid").setAttribute("aria-labelledby", "tab-" + current);
+      if (!items.length) {
+        $("grid").innerHTML = '<div class="empty">No activities here yet. Add one to the ACTIVITIES list.</div>';
+        return;
+      }
+      $("grid").innerHTML = items.map(a =>
+        '<article class="card">' +
+        (a.image ? '<img class="shot" src="' + esc(a.image) + '" alt="' + esc(a.title) + '">' : "") +
+        '<div class="meta"><span class="kind">' + esc(a.type) + "</span><span>" + esc(a.date) + "</span></div>" +
+        "<h3>" + esc(a.title) + "</h3>" +
+        (a.learned ? '<p class="learned"><b>What I learned:</b> ' + esc(a.learned) + "</p>" : "") +
+        '<div class="foot">' +
+        (a.link ? '<a href="' + esc(a.link) + '" target="_blank" rel="noopener">' + esc(a.linkText || "View work") + "</a>" : "<span></span>") +
+        (a.score ? '<span class="score">' + esc(a.score) + "</span>" : "") +
+        "</div></article>").join("");
+    }
+
+    tabs.addEventListener("click", e => {
+      const btn = e.target.closest(".tab");
+      if (!btn) return;
+      current = btn.dataset.term;
+      renderTabs();
+      renderCards();
+      $("tab-" + current).focus();
+    });
+
+    tabs.addEventListener("keydown", e => {
+      if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+      const keys = Object.keys(TERMS);
+      const i = keys.indexOf(current) + (e.key === "ArrowRight" ? 1 : -1);
+      current = keys[(i + keys.length) % keys.length];
+      renderTabs();
+      renderCards();
+      $("tab-" + current).focus();
+    });
+
+    function renderReflections() {
+      const section = $("reflections");
+      if (!REFLECTIONS.length) { section.hidden = true; return; }
+      $("reflectionsIntro").textContent = REFLECTIONS_INTRO;
+      $("reflectionList").innerHTML = REFLECTIONS.map(r => {
+        const paras = (Array.isArray(r.text) ? r.text : [r.text]).filter(Boolean)
+          .map(t => "<p>" + esc(t) + "</p>").join("");
+        const photos = (r.photos || []).filter(ph => ph && ph.src).map(ph => {
+          const cap = ph.caption || "";
+          return '<figure><button class="zoom" type="button" data-src="' + esc(ph.src) + '" data-cap="' + esc(cap) + '">' +
+            '<img src="' + esc(ph.src) + '" alt="' + esc(cap || r.title + " photo") + '"></button>' +
+            (cap ? "<figcaption>" + esc(cap) + "</figcaption>" : "") + "</figure>";
+        }).join("");
+        return '<article class="entry">' +
+          '<div class="entry-head">' +
+            (r.period ? '<span class="badge">' + esc(r.period) + "</span>" : "") +
+            "<h3>" + esc(r.title) + "</h3>" +
+            (r.date ? '<span class="when">' + esc(r.date) + "</span>" : "") +
+          "</div>" +
+          '<div class="entry-body">' +
+            (r.highlight ? '<p class="pull">' + esc(r.highlight) + "</p>" : "") +
+            paras +
+            (photos ? '<div class="gallery">' + photos + "</div>" : "") +
+            (r.link ? '<p><a href="' + esc(r.link) + '" target="_blank" rel="noopener">' + esc(r.linkText || "Open link") + "</a></p>" : "") +
+          "</div></article>";
+      }).join("");
+    }
+
+    const box = $("lightbox");
+    $("reflectionList").addEventListener("click", e => {
+      const b = e.target.closest(".zoom");
+      if (!b) return;
+      $("lightboxImg").src = b.dataset.src;
+      $("lightboxImg").alt = b.dataset.cap || "Enlarged photo";
+      $("lightboxCap").textContent = b.dataset.cap;
+      box.showModal();
+    });
+    $("lightboxClose").addEventListener("click", () => box.close());
+    box.addEventListener("click", e => { if (e.target === box) box.close(); });
+
+    renderTabs();
+    renderCards();
+    renderReflections();
+  </script>
+</body>
+
+</html>
